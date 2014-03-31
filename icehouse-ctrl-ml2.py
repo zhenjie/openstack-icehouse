@@ -208,7 +208,7 @@ def install_and_configure_keystone():
     keystone_conf = "/etc/keystone/keystone.conf"
 
     execute_db_commnads("DROP DATABASE IF EXISTS keystone;")
-    execute_db_commnads("CREATE DATABASE keystone DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8 general_ci;")
+    execute_db_commnads("CREATE DATABASE keystone DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;")
     execute_db_commnads("GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'%' IDENTIFIED BY 'keystone';")
     execute_db_commnads("GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'localhost' IDENTIFIED BY 'keystone';")
 
@@ -236,7 +236,7 @@ def install_and_configure_glance():
     glance_registry_paste_conf = "/etc/glance/glance-registry-paste.ini"
 
     execute_db_commnads("DROP DATABASE IF EXISTS glance;")
-    execute_db_commnads("CREATE DATABASE glance DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8 general_ci;")
+    execute_db_commnads("CREATE DATABASE glance DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;")
     execute_db_commnads("GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'%' IDENTIFIED BY 'glance';")
     execute_db_commnads("GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'localhost' IDENTIFIED BY 'glance';")
 
@@ -284,7 +284,7 @@ def install_and_configure_nova():
     nova_paste_conf = "/etc/nova/api-paste.ini"
     
     execute_db_commnads("DROP DATABASE IF EXISTS nova;")
-    execute_db_commnads("CREATE DATABASE nova DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8 general_ci;")
+    execute_db_commnads("CREATE DATABASE nova DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;")
     execute_db_commnads("GRANT ALL PRIVILEGES ON nova.* TO 'nova'@'%' IDENTIFIED BY 'nova';")
     execute_db_commnads("GRANT ALL PRIVILEGES ON nova.* TO 'nova'@'localhost' IDENTIFIED BY 'nova';")
 
@@ -341,7 +341,7 @@ def install_and_configure_neutron():
        
 
     execute_db_commnads("DROP DATABASE IF EXISTS neutron;")
-    execute_db_commnads("CREATE DATABASE neutron DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8 general_ci;")
+    execute_db_commnads("CREATE DATABASE neutron DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;")
     execute_db_commnads("GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'%' IDENTIFIED BY 'neutron';")
     execute_db_commnads("GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'localhost' IDENTIFIED BY 'neutron';")
 
