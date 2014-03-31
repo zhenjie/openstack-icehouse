@@ -383,7 +383,11 @@ def install_and_configure_dashboard():
     execute("apt-get install openstack-dashboard -y", True)
 
     # To fix this bug: https://bugs.launchpad.net/horizon/+bug/1288245
-    execute("easy_install mox")
+    execute("easy_install mox", True)
+    
+    # uninstall ubuntu-openstack-theme
+    # http://docs.openstack.org/havana/install-guide/install/apt/content/install_dashboard.html
+    execute("apt-get remove --purge openstack-dashboard-ubuntu-theme", True)
 
     execute("service apache2 restart", True)
 
