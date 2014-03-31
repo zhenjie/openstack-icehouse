@@ -11,7 +11,7 @@ easy_install mox
 
 # delete old keystone db backend configuration
 sed -i 's/connection=sqlite:\/\/\/\/keystone\/openstack\/common\/db\/$sqlite_db//' /etc/keystone/keystone.conf
-sed -i 's/connection = sqlite:\/\/\/\/var\/lib\/keystone/keystone.db' /etc/keystone/keystone.conf
+sed -i 's/connection = sqlite:\/\/\/\/var\/lib\/keystone\/keystone.db//' /etc/keystone/keystone.conf
 
 # uninstall ubuntu-openstack-theme
 # http://docs.openstack.org/havana/install-guide/install/apt/content/install_dashboard.html

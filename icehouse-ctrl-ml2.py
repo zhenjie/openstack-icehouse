@@ -215,7 +215,7 @@ def install_and_configure_keystone():
     execute("apt-get install keystone -y", True)
 
     # keystone conf has a section name [database] for sqlite, we have to disable it!
-    execute("sed -i 's/connection = sqlite:\/\/\/\/var\/lib\/keystone/keystone.db' %s" % keystone_conf)
+    execute("sed -i 's/connection = sqlite:\/\/\/\/var\/lib\/keystone\/keystone.db//' %s" % keystone_conf)
     
     add_to_conf(keystone_conf, "DEFAULT", "admin_token", "ADMINTOKEN")
     add_to_conf(keystone_conf, "DEFAULT", "admin_port", 35357)
