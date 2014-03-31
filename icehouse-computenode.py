@@ -187,6 +187,18 @@ def install_and_configure_nova():
     add_to_conf(nova_compute_conf, "DEFAULT", "compute_driver", "libvirt.LibvirtDriver")
     add_to_conf(nova_compute_conf, "DEFAULT", "libvirt_vif_type", "ethernet")
   
+    """ The resulting nova-compute.conf might be:
+        [DEFAULT]
+        compute_driver=libvirt.LibvirtDriver
+        libvirt_type = qemu
+        libvirt_vif_type = ethernet
+        [libvirt]
+        virt_type=kvm
+    
+        Why we have item virt_type=kvm? We have to replate kvm with qemu!
+     """
+    execute("sed -i 's/^virt_type=kvm/virt_type=qemu/'")
+        
     execute("service libvirt-bin restart", True)
     execute("service nova-compute restart", True)
    
