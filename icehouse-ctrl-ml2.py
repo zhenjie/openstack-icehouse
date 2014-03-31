@@ -381,6 +381,10 @@ def install_and_configure_neutron():
 
 def install_and_configure_dashboard():
     execute("apt-get install openstack-dashboard -y", True)
+
+    # To fix this bug: https://bugs.launchpad.net/horizon/+bug/1288245
+    execute("easy_install mox")
+
     execute("service apache2 restart", True)
 
 initialize_system()
