@@ -212,6 +212,9 @@ def install_and_configure_keystone():
     execute_db_commnads("GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'%' IDENTIFIED BY 'keystone';")
     execute_db_commnads("GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'localhost' IDENTIFIED BY 'keystone';")
 
+    # Just in case!
+    execute("apt-get install python-prettytable -y")
+    
     execute("apt-get install keystone -y", True)
 
     # keystone conf has a section name [database] for sqlite, we have to disable it!
