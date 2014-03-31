@@ -387,7 +387,7 @@ def install_and_configure_dashboard():
     
     # uninstall ubuntu-openstack-theme
     # http://docs.openstack.org/havana/install-guide/install/apt/content/install_dashboard.html
-    execute("apt-get remove --purge openstack-dashboard-ubuntu-theme", True)
+    execute("apt-get remove --purge openstack-dashboard-ubuntu-theme -y", True)
 
     execute("service apache2 restart", True)
 
