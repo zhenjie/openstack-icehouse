@@ -58,3 +58,13 @@ Eth2: Openstack Data Network
 This script install following components of openstack and configure them:
 
 Neutron (dhcp-agent, l3-agent, ovs-agent)
+
+
+Reference
+---------------
+http://docs.openstack.org/havana/install-guide/install/apt/content/section_networking-provider-router_with-provate-networks.html
+
+
+Troubleshooting
+----------------
+http://virtual2privatecloud.com/troubleshooting-openstack-nova/
