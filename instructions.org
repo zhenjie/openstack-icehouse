@@ -1,0 +1,97 @@
+* Setup
+** Control node
+   - eth0 
+     192.168.0.5
+   - eth1 
+     10.10.0.5
+** Compute node
+   - eth0 
+     192.168.0.6
+   - eth1 
+     10.10.0.6
+   - eth2
+     10.10.10.6   
+** Network node
+   - eth0 
+     192.168.0.7
+   - eth1 
+     10.10.0.7
+   - eth2
+     10.10.10.7
+* Install and configure control node
+  1. Install Ubuntu 12.04 Server with SSH support
+  2. Install git
+     #+begin_example
+     sudo apt-get install git -y
+     #+end_example
+  3. Download scripts from repo
+     #+begin_example
+     git clone https://github.com/zhenjie/openstack-icehouse
+     #+end_example
+  4. Configure interfaces
+     #+begin_example
+     sudo cp ~/openstack-icehouse/interfaces/control-interfaces /etc/network/interfaces
+     #+end_example
+  5. Install and configure
+     #+begin_example
+     sudo python ~/openstack-icehouse/icehouse-ctrl-ml2.py
+     #+end_example
+  6. Done!
+
+* Install and configure compute node
+  1. Install Ubuntu 12.04 Server with SSH support
+  2. Install git
+     #+begin_example
+     sudo apt-get install git -y
+     #+end_example
+  3. Download scripts from repo
+     #+begin_example
+     git clone https://github.com/zhenjie/openstack-icehouse
+     #+end_example
+  4. Configure interfaces
+     #+begin_example
+     sudo cp ~/openstack-icehouse/interfaces/compute-interfaces /etc/network/interfaces
+     #+end_example
+  5. Install and configure
+     #+begin_example
+     sudo python ~/openstack-icehouse/icehouse-computenode.py
+     #+end_example
+  6. Done!
+
+* Install and configure network node
+  1. Install Ubuntu 12.04 Server with SSH support
+  2. Install git
+     #+begin_example
+     sudo apt-get install git -y
+     #+end_example
+  3. Download scripts from repo
+     #+begin_example
+     git clone https://github.com/zhenjie/openstack-icehouse
+     #+end_example
+  4. Configure interfaces
+     #+begin_example
+     sudo cp ~/openstack-icehouse/interfaces/network-interfaces /etc/network/interfaces
+     #+end_example
+  5. Install and configure control node
+     #+begin_example
+     sudo python ~/openstack-icehouse/icehouse-networknode.py
+     #+end_example
+  6. Done!
+  
+* Test
+  - init environment, i.e., set environment variable
+    #+begin_example
+    source ~/openstack-icehouse/environment
+    #+end_example
+  - list neutron agent list
+    #+begin_example
+    neutron agent-list
+    #+end_example
+  - list instance list
+    #+begin_example
+    nova list
+    #+end_example
+  - Basically, you can run any commands listed here
+    - [[http://docs.openstack.org/user-guide/content/novaclient\_commands.html]]
+    - [[http://docs.openstack.org/user-guide/content/neutron\_client\_commands.html]]
+    
