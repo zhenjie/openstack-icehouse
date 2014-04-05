@@ -197,7 +197,7 @@ def install_and_configure_nova():
     
         Why we have item virt_type=kvm? We have to replate kvm with qemu!
      """
-    execute("sed -i 's/^virt_type=kvm/virt_type=qemu/'")
+    execute("sed -i 's/^virt_type=kvm/virt_type=qemu/' /etc/nova/nova-compute.conf")
         
     execute("service libvirt-bin restart", True)
     execute("service nova-compute restart", True)
