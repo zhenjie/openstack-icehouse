@@ -1,0 +1,26 @@
+https://bugs.launchpad.net/ubuntu/+source/glance/+bug/1302044
+
+2014-04-04 18:24:30.966 7550 ERROR glance.store.sheepdog [-] Error in store configuration: Unexpected error while running command.
+2014-04-04 18:24:31.000 7550 ERROR glance.store.filesystem [-] Permission to write in /var/lib/glance/images/ denied
+2014-04-04 18:24:31.029 7550 ERROR glance.store.filesystem [ccb1e2e9-096a-46d5-8be1-fb514388170f - - - - -] Permission to write in /var/lib/glance/images/ denied
+2014-04-04 18:24:35.029 7618 DEBUG glance.openstack.common.db.sqlalchemy.session [-] MySQL server mode set to STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION _mysql_check_effective_sql_mode /usr/lib/python2.7/dist-packages/glance/openstack/common/db/sqlalchemy/session.py:562
+2014-04-04 18:24:37.355 7630 ERROR glance.store.sheepdog [-] Error in store configuration: Unexpected error while running command.
+2014-04-04 18:24:37.393 7630 ERROR glance.store.filesystem [-] Permission to write in /var/lib/glance/images/ denied
+2014-04-04 18:24:37.422 7630 ERROR glance.store.filesystem [7d376f50-e150-46cf-a380-c6d319aa4a19 - - - - -] Permission to write in /var/lib/glance/images/ denied
+2014-04-05 17:12:09.943 1032 ERROR glance.store.sheepdog [-] Error in store configuration: Unexpected error while running command.
+2014-04-05 17:12:10.364 1032 ERROR glance.store.filesystem [-] Permission to write in /var/lib/glance/images/ denied
+2014-04-05 17:12:10.714 1032 ERROR glance.store.filesystem [7f6213fe-3514-44cf-869c-bb864a4bfc1c - - - - -] Permission to write in /var/lib/glance/images/ denied
+2014-04-06 14:20:09.131 1017 ERROR glance.store.sheepdog [-] Error in store configuration: Unexpected error while running command.
+2014-04-06 14:20:09.811 1017 ERROR glance.store.filesystem [-] Permission to write in /var/lib/glance/images/ denied
+2014-04-06 14:20:10.205 1017 ERROR glance.store.filesystem [1629cf3e-e4e8-4510-9f80-6c5f478dc0ac - - - - -] Permission to write in /var/lib/glance/images/ denied
+2014-04-06 14:23:31.429 1011 ERROR glance.store.sheepdog [-] Error in store configuration: Unexpected error while running command.
+2014-04-06 14:23:31.783 1011 ERROR glance.store.filesystem [-] Permission to write in /var/lib/glance/images/ denied
+2014-04-06 14:23:32.140 1011 ERROR glance.store.filesystem [fb8a1483-b7d2-4554-8a26-3342bbcc438d - - - - -] Permission to write in /var/lib/glance/images/ denied
+2014-04-06 14:32:05.492 1484 ERROR glance.store.filesystem [-] Permission to write in /var/lib/glance/images/ denied
+2014-04-06 14:32:05.534 1484 ERROR glance.api.v1.upload_utils [-] Failed to upload image af57ca13-1938-4a9a-a81d-cbb13c064496
+2014-04-06 15:49:44.913 1484 ERROR glance.store.filesystem [-] Permission to write in /var/lib/glance/images/ denied
+2014-04-06 15:49:44.944 1484 ERROR glance.api.v1.upload_utils [-] Failed to upload image 901af81a-ce5d-49f4-aa9e-600655c6af8d
+2014-04-06 15:51:23.130 1484 ERROR glance.store.filesystem [ff7686e3-097a-4116-97d7-70bc1d1fad0b 6bd3307fc8ca4e968538af867c9d996c e7a43d2fbfe84f72acf2b4b86386c6d6 - - -] Permission to write in /var/lib/glance/images/ denied
+2014-04-06 15:51:23.157 1484 ERROR glance.api.v1.upload_utils [ff7686e3-097a-4116-97d7-70bc1d1fad0b 6bd3307fc8ca4e968538af867c9d996c e7a43d2fbfe84f72acf2b4b86386c6d6 - - -] Failed to upload image 1c6058aa-f086-4163-bf8d-3cd0de9507eb
+2014-04-06 15:58:18.911 1484 ERROR glance.store.filesystem [eef715ef-dab3-4477-a1da-db3bbb3e5f1a 6bd3307fc8ca4e968538af867c9d996c e7a43d2fbfe84f72acf2b4b86386c6d6 - - -] Permission to write in /var/lib/glance/images/ denied
+2014-04-06 15:58:18.953 1484 ERROR glance.api.v1.upload_utils [eef715ef-dab3-4477-a1da-db3bbb3e5f1a 6bd3307fc8ca4e968538af867c9d996c e7a43d2fbfe84f72acf2b4b86386c6d6 - - -] Failed to upload image 76e54b7c-ece5-4a2e-bb5d-14a25db5cb5f
