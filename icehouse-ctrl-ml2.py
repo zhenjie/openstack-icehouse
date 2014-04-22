@@ -354,8 +354,8 @@ def install_and_configure_neutron():
     execute("apt-get install neutron-plugin-ml2 -y",True)
     add_to_conf(neutron_conf, "DEFAULT", "core_plugin", "neutron.plugins.ml2.plugin.Ml2Plugin")
     add_to_conf(neutron_conf, "DEFAULT", "service_plugins", "neutron.services.l3_router.l3_router_plugin.L3RouterPlugin")
-    add_to_conf(neutron_conf, "database", "connection", "mysql://neutron:neutron@localhost/neutron")
     add_to_conf(neutron_conf, "DEFAULT", "verbose", "True")
+    add_to_conf(neutron_conf, "database", "connection", "mysql://neutron:neutron@localhost/neutron")
     add_to_conf(neutron_conf, "DEFAULT", "debug", "True")
     add_to_conf(neutron_conf, "DEFAULT", "auth_strategy", "keystone")
     add_to_conf(neutron_conf, "DEFAULT", "rabbit_host", "127.0.0.1")
@@ -380,6 +380,49 @@ def install_and_configure_neutron():
 
     execute("service neutron-server restart", True)
    
+def install_and_configure_cinder():
+    os.environ['SERVICE_TOKEN'] = 'ADMINTOKEN'
+    os.environ['SERVICE_ENDPOINT'] = 'http://%s:35357/v2.0'% ip_address
+    os.environ['no_proxy'] = "localhost,127.0.0.1,%s" % ip_address
+    
+    execute("apt-get install cinder-api cinder-scheduler", True)
+    
+    cinder_conf="/etc/cinder/cinder.conf"    
+    add_to_conf(cinder_conf, "database", "connection", "mysql://cinder:cinder@localhost/cinder")
+ 
+    execute_db_commnads("DROP DATABASE IF EXISTS cinder;")
+    execute_db_commnads("CREATE DATABASE cinder;")
+    execute_db_commnads("GRANT ALL PRIVILEGES ON cinder.* TO 'cinder'@'localhost' IDENTIFIED BY 'cinder';")
+    execute_db_commnads("GRANT ALL PRIVILEGES ON cinder.* TO 'cinder'@'%' IDENTIFIED BY 'cinder';")
+
+    execute('su -s /bin/sh -c "cinder-manage db sync" cinder', True)
+    
+    execute("keystone user-create --name=cinder --pass=cinder --email=cinder@example.com", True)
+    execute("keystone user-role-add --user=cinder --tenant=service --role=admin", True)
+	
+    add_to_conf(cinder_conf, "keystone_authtoken", "auth_uri", "localhost:5000")
+    add_to_conf(cinder_conf, "keystone_authtoken", "auth_host", "localhost")
+    add_to_conf(cinder_conf, "keystone_authtoken", "auth_port", "35357")
+    add_to_conf(cinder_conf, "keystone_authtoken", "auth_protocol", "http")
+    add_to_conf(cinder_conf, "keystone_authtoken", "admin_tenant_name", "service")
+    add_to_conf(cinder_conf, "keystone_authtoken", "admin_user", "cinder")
+
+    add_to_conf(cinder_conf, "keystone_authtoken", "admin_password", "cinder")
+    
+    add_to_conf(cinder_conf, "DEFAULT", "rpc_backend", "cinder.openstack.common.rpc.impl_kombu")
+    add_to_conf(cinder_conf, "DEFAULT", "rabbit_host", "127.0.0.1")
+    add_to_conf(cinder_conf, "DEFAULT", "rabbit_port", "5672")
+
+    execute('keystone service-create --name=cinder --type=volume --description="Openstack Block Storage"', True)
+    execute("keystone endpoint-create --service-id=$(keystone service-list | awk '/ volume / {print $2 }') --publicurl=http://127.0.0.1:8776/v1/%\(tenant_id\)s  --internalurl=http://127.0.0.1:8776/v1/%\(tenant_id\)s --adminurl=http://127.0.0.1:8776/v1/%\(tenant_id\)s", True)
+
+    # step 9
+    execute('keystone service-create --name=cinderv2 --type=volumev2 --description="Openstack Block Storage v2"', True)
+    execute("keystone endpoint-create --service-id=$(keystone service-list | awk '/ volumev2 / {print $2 }') --publicurl=http://127.0.0.1:8776/v2/%\(tenant_id\)s  --internalurl=http://127.0.0.1:8776/v2/%\(tenant_id\)s --adminurl=http://127.0.0.1:8776/v2/%\(tenant_id\)s", True)
+
+    # restart block storage service
+    execute("service cinder-scheduler restart")
+    execute("service cinder-api restart")
 
 
 def install_and_configure_dashboard():
@@ -401,5 +444,6 @@ install_and_configure_keystone()
 install_and_configure_glance()
 install_and_configure_nova()
 install_and_configure_neutron()
+install_and_configure_cinder()
 install_and_configure_dashboard()
 print_format(" Installation successfull! Login into horizon http://%s/horizon  Username:admin  Password:secret " % ip_address)
