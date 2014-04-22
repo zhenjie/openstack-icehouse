@@ -80,6 +80,8 @@ Reference
 http://docs.openstack.org/havana/install-guide/install/apt/content/section_networking-provider-router_with-provate-networks.html
 
 
+
+
 Troubleshooting
 ----------------
 http://virtual2privatecloud.com/troubleshooting-openstack-nova/
