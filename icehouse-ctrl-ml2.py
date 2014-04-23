@@ -385,7 +385,7 @@ def install_and_configure_cinder():
     os.environ['SERVICE_ENDPOINT'] = 'http://%s:35357/v2.0'% ip_address
     os.environ['no_proxy'] = "localhost,127.0.0.1,%s" % ip_address
     
-    execute("apt-get install cinder-api cinder-scheduler", True)
+    execute("apt-get install cinder-api cinder-scheduler -y", True)
     
     cinder_conf="/etc/cinder/cinder.conf"    
     add_to_conf(cinder_conf, "database", "connection", "mysql://cinder:cinder@localhost/cinder")
