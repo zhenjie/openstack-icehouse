@@ -13,6 +13,7 @@ iniparse = None
 psutil = None
 
 mysql_password = "secret"
+service_tenant = None
 
 def kill_process(process_name):
     for proc in psutil.process_iter():
@@ -155,6 +156,7 @@ def _create_keystone_users():
     os.environ['SERVICE_TOKEN'] = 'ADMINTOKEN'
     os.environ['SERVICE_ENDPOINT'] = 'http://%s:35357/v2.0'% ip_address
     os.environ['no_proxy'] = "localhost,127.0.0.1,%s" % ip_address
+    global service_tenant 
 
     #TODO(ish) : This is crude way of doing. Install keystone client and use that to create tenants, role etc
     admin_tenant = execute("keystone tenant-create --name admin --description 'Admin Tenant' --enabled true |grep ' id '|awk '{print $4}'")
@@ -222,7 +224,7 @@ def install_and_configure_keystone():
     
     add_to_conf(keystone_conf, "DEFAULT", "admin_token", "ADMINTOKEN")
     add_to_conf(keystone_conf, "DEFAULT", "admin_port", 35357)
-    add_to_conf(keystone_conf, "sql", "connection", "mysql://keystone:keystone@localhost/keystone")
+    add_to_conf(keystone_conf, "database", "connection", "mysql://keystone:keystone@localhost/keystone")
     add_to_conf(keystone_conf, "signing", "token_format", "UUID")
 
     execute("keystone-manage db_sync")
@@ -268,7 +270,7 @@ def install_and_configure_glance():
     add_to_conf(glance_api_conf, "paste_deploy", "flavor", "keystone")
     add_to_conf(glance_api_conf, "DEFAULT", "verbose", "true")
     add_to_conf(glance_api_conf, "DEFAULT", "debug", "true")
-
+    add_to_conf(glance_api_conf, "DEFAULT", "db_enforce_mysql_charset", "false")
 
     add_to_conf(glance_registry_conf, "DEFAULT", "sql_connection", "mysql://glance:glance@localhost/glance")
     add_to_conf(glance_registry_conf, "paste_deploy", "flavor", "keystone")
@@ -362,6 +364,13 @@ def install_and_configure_neutron():
     add_to_conf(neutron_conf, "DEFAULT", "rabbit_port", "5672")
     add_to_conf(neutron_conf, "DEFAULT", "allow_overlapping_ips", "False")
     add_to_conf(neutron_conf, "DEFAULT", "root_helper", "sudo neutron-rootwrap /etc/neutron/rootwrap.conf")
+    add_to_conf(neutron_conf, "DEFAULT", "notify_nova_on_port_status_changes", "True")
+    add_to_conf(neutron_conf, "DEFAULT", "notify_nova_on_port_data_changes", "True")
+    add_to_conf(neutron_conf, "DEFAULT", "nova_url", "http://127.0.0.1:8774/v2")
+    add_to_conf(neutron_conf, "DEFAULT", "nova_admin_username", "nova")
+    add_to_conf(neutron_conf, "DEFAULT", "nova_admin_password", "nova")
+    add_to_conf(neutron_conf, "DEFAULT", "nova_admin_tenant_id", service_tenant)
+    add_to_conf(neutron_conf, "DEFAULT", "nova_admin_auth_url", "http://127.0.0.1:5000/v2.0/")
 
     add_to_conf(neutron_paste_conf, "filter:authtoken", "auth_host", ip_address)
     add_to_conf(neutron_paste_conf, "filter:authtoken", "auth_port", "35357")
